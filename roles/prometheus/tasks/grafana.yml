@@ -20,7 +20,7 @@
 - name: Generate Prometheus datasource on grafana
   become: true
   template:
-    src: "{{ playbook_dir }}/roles/server/templates/datasource.yaml.j2"
+    src: "{{ playbook_dir }}/roles/prometheus/templates/datasource.yaml.j2"
     dest: "{{ grafana_provisioning_config_dir }}/datasources/datasource.yaml"
     force: true
     owner: "{{ localuser }}"
