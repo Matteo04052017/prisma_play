@@ -1,0 +1,10 @@
+---
+- name: deploy_server
+  hosts: server
+  become: true
+  become_method: sudo
+  become_flags: '-E -S -n'
+  roles:
+    - updatehosts
+    - docker
+    - server

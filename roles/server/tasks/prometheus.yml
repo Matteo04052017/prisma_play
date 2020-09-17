@@ -64,6 +64,37 @@
     state: present
     update_cache: yes
 
+
+- name: Generate Prometheus configuration
+  become: true
+  template:
+    src: "{{ playbook_dir }}/roles/server/templates/prometheus.yml.j2"
+    dest: "{{ prometheus_config_dir }}/prometheus.yml"
+    force: true
+    owner: "{{ localuser }}"
+    group: "{{ localuser }}"
+    mode: 0755
+
+- name: Create alerting rules file
+  template:
+    src: "{{ playbook_dir }}/roles/server/templates/alert.rules.j2"
+    dest: "{{ prometheus_config_dir }}/rules/ansible_managed.rules"
+    owner: "{{ localuser }}"
+    group: "{{ localuser }}"
+    mode: 0755
+  when:
+    - prometheus_alert_rules != []
+
+- name: Create record rules file
+  template:
+    src: "{{ playbook_dir }}/roles/server/templates/record.rules.j2"
+    dest: "{{ prometheus_config_dir }}/rules/record.rules"
+    owner: "{{ localuser }}"
+    group: "{{ localuser }}"
+    mode: 0755
+  when:
+    - prometheus_record_rules != []
+
 - name: Stop prometheus container
   docker_container:
     name: prometheus

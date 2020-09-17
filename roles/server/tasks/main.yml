@@ -2,5 +2,5 @@
 
 
 - include: prometheus.yml
-- include: alertmanager.yml
+#- include: alertmanager.yml
 - include: grafana.yml

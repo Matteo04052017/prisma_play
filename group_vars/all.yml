@@ -1,0 +1,35 @@
+---
+
+# common variables
+aptcachetime: 3600
+locale: "en_US.UTF-8"
+localuser: "{{ lookup('env','USER') }}"
+localhome: "{{ lookup('env','HOME') }}"
+
+prometheus_url: https://alerts.engageska-portugal.pt
+prometheus_docker_tags: 'v2.19.2'
+prometheus_title: PRISMA Prometheus Server
+prometheus_memory: 4096M
+prometheus_alertmanager_url: http://192.168.93.26:9093
+prometheus_alertmanager_docker_tags: 'v0.21.0'
+prometheus_bleckbox_exporter_docker_tags: 'v0.17.0'
+cadvisor_docker_tags: 'v0.35.0'
+grafana_docker_tags: '7.0.6'
+
+prometheus_binary_dir: /usr/local/bin
+prometheus_config_dir: /etc/prometheus
+prometheus_data_dir: /prometheus
+
+prometheus_alertmanager_config_dir: /etc/alertmanager
+prometheus_alertmanager_data_dir: /alertmanager
+
+grafana_provisioning_config_dir: /etc/grafana/provisioning
+grafana_data: /var/lib/grafana
+grafana_dashboard_version: nautilus
+grafana_datasource: Prometheus
+grafana_dashboards_path: "{{ grafana_provisioning_config_dir }}/dashboards"
+grafana_plugins:
+  - vonage-status-panel
+  - grafana-piechart-panel
+  - grafana-polystat-panel
+grafana_admin_password: admin

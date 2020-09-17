@@ -20,7 +20,7 @@
 - name: Generate Prometheus datasource on grafana
   become: true
   template:
-    src: "{{ playbook_dir }}/roles/prometheus/templates/datasource.yaml.j2"
+    src: "{{ playbook_dir }}/roles/server/templates/datasource.yaml.j2"
     dest: "{{ grafana_provisioning_config_dir }}/datasources/datasource.yaml"
     force: true
     owner: "{{ localuser }}"
@@ -54,3 +54,26 @@
     env:
       GF_INSTALL_PLUGINS: "{{ grafana_plugins|join(',') }}"
       GF_SECURITY_ADMIN_PASSWORD: "{{ grafana_admin_password }}"
+
+- name: nodexporter-dashboard make sure grafana configuration directories exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+  with_items:
+    - "/etc/grafana/provisioning/datasources"
+    - "/etc/grafana/provisioning/dashboards/node-exporter-dashboard"
+    - "/etc/grafana/provisioning/notifiers"
+
+- name: nodexporter-dashboard Copy up resource files
+  copy:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "/etc/grafana/provisioning/dashboards/node-exporter-dashboard/{{ item }}"
+  with_items:
+    - node-exporter.json
+
+- name: nodexporter-dashboard Write dashboards provisioning config file
+  template:
+    src: dashboards-nodexporter-dashboard.yml.j2
+    dest: /etc/grafana/provisioning/dashboards/nodexporter-dashboard.yml
+    mode: 0640
