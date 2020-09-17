@@ -1,0 +1,11 @@
+localuser: "{{ lookup('env','USER') }}"
+localhome: "{{ lookup('env','HOME') }}"
+
+prometheus_binary_dir: /usr/local/bin
+prometheus_config_dir: /etc/prometheus
+prometheus_data_dir: /prometheus
+
+prometheus_docker_tags: 'v2.19.2'
+
+prometheus_title: PRISMA Prometheus Server
+prometheus_memory: 4096M

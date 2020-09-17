@@ -1,0 +1,92 @@
+
+- name: Install distutils
+  apt:
+    pkg:
+      - python3-distutils
+      - python3-requests
+    state: present
+    update_cache: yes
+
+- name: Fix pip
+  block:
+  - name: Install packages required for docker (apt)
+    apt:
+      name: ['python3-pip']
+      state: present
+
+  - name: uninstall docker dependencies
+    pip:
+      name: ['docker-py', 'docker-pycreds']
+      executable: pip3
+      state: absent
+
+  - name: install docker dependencies
+    pip:
+      executable: pip3
+      name: docker
+
+- name: pip self-update
+  pip:
+    name: pip
+    state: latest
+
+- name: ensure Prometheus data directory
+  file:
+    path: '{{ prometheus_data_dir }}'
+    state: directory
+    mode: 0766
+    owner: "{{ localuser }}"
+    group: "{{ localuser }}"
+  become: yes
+
+- name: ensure Prometheus configuration directory
+  file:
+    path: '{{ prometheus_config_dir }}'
+    state: directory
+    mode: 0755
+    owner: "{{ localuser }}"
+    group: "{{ localuser }}"
+  become: yes
+
+- name: ensure Prometheus rules configuration directory
+  file:
+    path: '{{ prometheus_config_dir }}/rules/'
+    state: directory
+    mode: 0755
+    owner: "{{ localuser }}"
+    group: "{{ localuser }}"
+  become: yes
+
+- name: Install cron
+  apt:
+    pkg:
+      - cron
+    state: present
+    update_cache: yes
+
+- name: Stop prometheus container
+  docker_container:
+    name: prometheus
+    stop_timeout: 180
+    state: absent
+
+- name: Start prometheus container
+  docker_container:
+    name: prometheus
+    image: "prom/prometheus:{{ prometheus_docker_tags }}"
+    state: started
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.page-title='{{ prometheus_title }}'"
+      - "--web.external-url={{ prometheus_url | default('http://'+ansible_default_ipv4.address+':9090') }}"
+    user: root
+    memory: "{{ prometheus_memory }}"
+    restart: yes
+    restart_policy: always
+    ports:
+     - "9090:9090"
+    volumes:
+      - "{{ prometheus_config_dir }}:/etc/prometheus:ro"
+      - "/etc/hosts:/etc/hosts:ro"
+      - "{{ prometheus_data_dir }}:/prometheus"
