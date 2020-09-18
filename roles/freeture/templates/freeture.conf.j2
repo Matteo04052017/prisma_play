@@ -1,0 +1,16 @@
+[Unit]
+Description=A Free software to capTure meteors
+Documentation=https://github.com/cmarmo/freeture
+
+[Service]
+Restart=always
+User=root
+EnvironmentFile=
+ExecStart=
+ExecStart=/usr/local/bin/freeture $ARGS
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=20s
+SendSIGKILL=no
+
+[Install]
+WantedBy=multi-user.target

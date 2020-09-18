@@ -1,0 +1,8 @@
+---
+- name: restart freeture
+  service:
+    name: freeture
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+  become: true

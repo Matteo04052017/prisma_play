@@ -15,6 +15,14 @@
 - name: Install the NTP daemon to synchronize the clocks to ms.
   apt: name=ntp
 
+- name: Install dependencies
+  apt:
+    name:
+    - ntp
+    - openvpn
+    - freeture
+    update_cache: yes
+
 - name: Make sure ntp is started, and is enabled on restart.
   service: name=ntp state=started enabled=yes
 
@@ -30,3 +38,25 @@
     mode: 0600
   with_items: "{{ add_ssh_keys }}"
 
+- name: Generate freeture configuration
+  become: true
+  template:
+    src: "{{ playbook_dir }}/roles/freeture/templates/configuration.cfg.j2"
+    dest: /etc/freeture/configuration.cfg
+    force: true
+    mode: 0755
+
+- name: Create freeture service configuration directory
+  file:
+    path: /etc/systemd/system/freeture.service.d
+    state: directory
+    mode: 0755
+
+- name: Fix node_exporter service configuration
+  become: true
+  template:
+    src: "{{ playbook_dir }}/roles/node_exporter/templates/freeture.conf.j2"
+    dest: /etc/systemd/system/freeture.service.d/freeture.conf
+    force: true
+    mode: 0755
+  notify: restart freeture
