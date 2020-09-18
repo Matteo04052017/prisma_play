@@ -6,6 +6,12 @@ locale: "en_US.UTF-8"
 localuser: "{{ lookup('env','USER') }}"
 localhome: "{{ lookup('env','HOME') }}"
 
+ntp_timezone: Etc/UTC
+
+add_ssh_keys:
+# Matteo
+- ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEM9gKH9cYHdyTnb3kNjABNx/pzW6UoW/IF1iQxBepXOfgCQsUfQ1nKuzm5D8Lsm3IRQDkWUMF4tKQIMj7g4F1L7ZoBlxN/QfF8jzOHY5UVA3U9GZu8uy9PgD5xqmh+l8Fat9NeIuOA8iM2yewPiiOm9vlItMpw5o+rhxBOeUbf4ilijc4dll7OPLodVcpqEHwkiH/11DOV9C/JuFVzsLFexinPNDH26Rt5hRR3QJK8XETTUVm7olzWjsTeF4OscyGrUJPACnQz1iOApuQ48rLpkhi1YY4nJcofDExDVbYlOZSsy3gKiRRSy1nBiL4c52iVHPUHHp6s8hj5d/mgP1n dev@tango matteo
+
 prometheus_url: https://alerts.engageska-portugal.pt
 prometheus_docker_tags: 'v2.19.2'
 prometheus_title: PRISMA Prometheus Server
@@ -15,6 +21,10 @@ prometheus_alertmanager_docker_tags: 'v0.21.0'
 prometheus_bleckbox_exporter_docker_tags: 'v0.17.0'
 cadvisor_docker_tags: 'v0.35.0'
 grafana_docker_tags: '7.0.6'
+
+node_exporter_version: 0.18.1-1.el7
+node_exporter_apt_package: http://archive.ubuntu.com/ubuntu/pool/universe/p/prometheus-node-exporter/prometheus-node-exporter_0.18.1+ds-2_amd64.deb
+
 
 prometheus_binary_dir: /usr/local/bin
 prometheus_config_dir: /etc/prometheus

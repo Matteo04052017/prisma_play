@@ -1,0 +1,5 @@
+---
+# vars file for prometheus
+
+node_exporter_version: 0.18.1-1.el7
+node_exporter_apt_package: http://archive.ubuntu.com/ubuntu/pool/universe/p/prometheus-node-exporter/prometheus-node-exporter_0.18.1+ds-2_amd64.deb
