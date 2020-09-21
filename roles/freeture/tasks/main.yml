@@ -12,7 +12,7 @@
 # ---
 # comando semplice!!!!
 # ***
-- name: Mount DVD read-only
+- name: Mount PRISMA
   become: yes
   mount:
     path: /prismadata
