@@ -7,7 +7,6 @@
   become_method: sudo
   become_flags: '-E -S -n'
   roles:
-    - updatehosts
-    - node-exporter
+    - node_exporter
     - freeture
     - VPN

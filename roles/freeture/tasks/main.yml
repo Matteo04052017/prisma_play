@@ -12,6 +12,20 @@
 # ---
 # comando semplice!!!!
 # ***
+- name: Mount DVD read-only
+  become: yes
+  mount:
+    path: /prismadata
+    src: /dev/sda1
+    state: mounted
+    fstype: ext4
+
+- name: Change file ownership, group and permissions
+  become: yes
+  file:
+    path: /etc/resolv.conf
+    mode: o+r 
+
 - name: Install dependencies
   become: yes
   apt:
@@ -57,11 +71,13 @@
     state: directory
     mode: 0755
 
-- name: Fix node_exporter service configuration
+
+
+- name: Fix freeture service configuration
   become: true
   template:
-    src: "{{ playbook_dir }}/roles/node_exporter/templates/freeture.conf.j2"
-    dest: /etc/systemd/system/freeture.service.d/freeture.conf
+    src: "{{ playbook_dir }}/roles/freeture/templates/freeture.conf.j2"
+    dest: /etc/systemd/system/freeture.service
     force: true
     mode: 0755
   notify: restart freeture

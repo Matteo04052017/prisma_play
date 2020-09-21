@@ -1,5 +1,5 @@
 [server]
-localhost
+localhost ansible_connection=local
 
 [client]
-10.8.0.8
+localhost ansible_connection=local

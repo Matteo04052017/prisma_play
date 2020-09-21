@@ -9,5 +9,5 @@
   roles:
     - updatehosts
     - docker
-    - node-exporter
+    - node_exporter
     - prometheus
