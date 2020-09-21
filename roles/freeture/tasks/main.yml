@@ -12,9 +12,6 @@
 # ---
 # comando semplice!!!!
 # ***
-- name: Install the NTP daemon to synchronize the clocks to ms.
-  apt: name=ntp
-
 - name: Install dependencies
   apt:
     name:
@@ -24,12 +21,14 @@
     update_cache: yes
 
 - name: Make sure ntp is started, and is enabled on restart.
+  become: yes
   service: name=ntp state=started enabled=yes
 
 - name: Set the timezone to the {{ntp_timezone}} one
   timezone: "name={{ntp_timezone}}"
 
 - name: Add ssh key
+  become: yes
   lineinfile:
     line: "{{ item }}"
     dest: ~/.ssh/authorized_keys
@@ -37,6 +36,13 @@
     create: no
     mode: 0600
   with_items: "{{ add_ssh_keys }}"
+
+- name: Ensure freeture data directory
+  file:
+    path: '/etc/freeture/'
+    state: directory
+    mode: 0755
+  become: yes
 
 - name: Generate freeture configuration
   become: true

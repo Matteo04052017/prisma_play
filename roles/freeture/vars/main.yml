@@ -12,3 +12,5 @@ camera_aperture: 2.0
 sitelong: 7.7649
 sitelat: 45.0412
 siteelev: 620
+
+vpn_config_file: /etc/openvpn/st001.conf

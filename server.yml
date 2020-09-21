@@ -7,4 +7,5 @@
   roles:
     - updatehosts
     - docker
+    - node-exporter
     - prometheus
