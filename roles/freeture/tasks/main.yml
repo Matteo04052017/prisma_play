@@ -13,15 +13,14 @@
 # comando semplice!!!!
 # ***
 - name: Install dependencies
+  become: yes
   apt:
     name:
     - ntp
-    - openvpn
     - freeture
     update_cache: yes
 
 - name: Make sure ntp is started, and is enabled on restart.
-  become: yes
   service: name=ntp state=started enabled=yes
 
 - name: Set the timezone to the {{ntp_timezone}} one

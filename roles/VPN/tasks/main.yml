@@ -1,0 +1,19 @@
+---
+- name: Install dependencies
+  become: yes
+  apt:
+    name:
+    - openvpn
+    update_cache: yes
+
+- name: Copy client configuration
+  copy:
+    src: "{{ openvpn_config_file }}"
+    dest: "/etc/openvpn/st001.conf"
+  when: mode == "client"
+
+- name: Enable OpenVPN
+  become: yes
+  shell: |
+    systemctl enable openvpn
+  when: mode == "client"

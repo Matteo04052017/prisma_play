@@ -1,13 +1,13 @@
 ---
-- name: deploy_server
-  hosts: server
+- name: deploy_st001 # prisma test camera NUC Torino
+  hosts: client
   vars:
-    mode: "server"
+    mode: "client"
   become: true
   become_method: sudo
   become_flags: '-E -S -n'
   roles:
     - updatehosts
-    - docker
     - node-exporter
-    - prometheus
+    - freeture
+    - VPN
