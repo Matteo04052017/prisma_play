@@ -58,7 +58,6 @@
   become: yes
 
 - name: Generate freeture configuration
-  become: true
   template:
     src: "{{ playbook_dir }}/roles/freeture/templates/configuration.cfg.j2"
     dest: /etc/freeture/configuration.cfg
@@ -70,8 +69,6 @@
     path: /etc/systemd/system/freeture.service.d
     state: directory
     mode: 0755
-
-
 
 - name: Fix freeture service configuration
   become: true
