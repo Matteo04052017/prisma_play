@@ -25,7 +25,6 @@ grafana_docker_tags: '7.0.6'
 node_exporter_version: 0.18.1-1.el7
 node_exporter_apt_package: http://archive.ubuntu.com/ubuntu/pool/universe/p/prometheus-node-exporter/prometheus-node-exporter_0.18.1+ds-2_amd64.deb
 
-
 prometheus_binary_dir: /usr/local/bin
 prometheus_config_dir: /etc/prometheus
 prometheus_data_dir: /prometheus
