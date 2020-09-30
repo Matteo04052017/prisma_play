@@ -77,12 +77,12 @@
     mode: 0755
   notify: restart freeture
 
-- name: Ensure SELinux is set to enforcing mode
-  become: true
-  lineinfile:
-    path: /etc/network/interfaces
-    regexp: '^SELINUX='
-    line: SELINUX=enforcing
+# - name: Ensure SELinux is set to enforcing mode
+#   become: true
+#   lineinfile:
+#     path: /etc/network/interfaces
+#     regexp: '^SELINUX='
+#     line: SELINUX=enforcing
 
 - name: Insert/Update "auto enp0s25" configuration block in /etc/network/interfaces
   blockinfile:

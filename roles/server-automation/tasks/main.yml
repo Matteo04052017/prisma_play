@@ -1,0 +1,21 @@
+- name: Install cron
+  become: yes
+  apt:
+    pkg:
+      - cron
+    state: present
+    update_cache: yes
+
+- name: Add cron job
+  cron:
+    name: "{{ item.name }}"
+    minute: "{{ item.minute }}"
+    hour: "{{ item.hour }}"
+    day: "{{ item.day }}"
+    month: "{{ item.month }}"
+    weekday: "{{ item.weekday }}"
+    user: "{{ item.user }}"
+    job: "{{ item.job }}"
+    cron_file: "{{ cron_file }}"
+  become: yes
+  with_items: "{{ cron_job_lines }}"

@@ -1,0 +1,11 @@
+cron_job_lines:
+    - name: clean runners
+      minute: "30"
+      hour: "*"
+      day: "*"
+      month: "*"
+      weekday: "*"
+      job: 
+      user: root
+
+cron_file: /etc/crontab
