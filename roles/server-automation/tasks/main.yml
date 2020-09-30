@@ -8,14 +8,14 @@
 
 - name: Add cron job
   cron:
-    name: "{{ item.name }}"
-    minute: "{{ item.minute }}"
-    hour: "{{ item.hour }}"
-    day: "{{ item.day }}"
-    month: "{{ item.month }}"
-    weekday: "{{ item.weekday }}"
-    user: "{{ item.user }}"
-    job: "{{ item.job }}"
+    name: "{{ cron_job_name }}"
+    minute: "{{ cron_job_minute }}"
+    hour: "{{ cron_job_hour }}"
+    day: "{{ cron_job_day }}"
+    month: "{{ cron_job_month }}"
+    weekday: "{{ cron_job_weekday }}"
+    user: "{{ cron_job_user }}"
+    job: "rsync -av --ignore-existing  system@{{item}}:/prismadata/*"
     cron_file: "{{ cron_file }}"
   become: yes
-  with_items: "{{ cron_job_lines }}"
+  with_items: "{{ sync_servers }}"

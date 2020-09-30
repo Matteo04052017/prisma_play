@@ -1,11 +1,12 @@
-cron_job_lines:
-    - name: clean runners
-      minute: "30"
-      hour: "*"
-      day: "*"
-      month: "*"
-      weekday: "*"
-      job: 
-      user: root
+cron_job_name: rsync
+cron_job_minute: "30"
+cron_job_hour: "*"
+cron_job_day: "*"
+cron_job_month: "*"
+cron_job_weekday: "*"
+cron_job_user: root
+
+sync_servers:
+- 10.8.0.8
 
 cron_file: /etc/crontab

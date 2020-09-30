@@ -13,6 +13,8 @@
         - targets:
             - "{{ ansible_fqdn | default(ansible_host) | default('localhost') }}:9100"
             - 10.8.0.8:9100
+    sync_servers:
+    - 10.8.0.8
   become: true
   become_method: sudo
   become_flags: '-E -S -n'
