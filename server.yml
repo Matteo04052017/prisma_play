@@ -3,16 +3,6 @@
   hosts: server
   vars:
     mode: "server"
-    prometheus_scrape_configs:
-    - job_name: "prometheus"
-      static_configs:
-        - targets:
-            - "{{ ansible_fqdn | default(ansible_host) | default('localhost') }}:9090"
-    - job_name: "node"
-      static_configs:
-        - targets:
-            - "{{ ansible_fqdn | default(ansible_host) | default('localhost') }}:9100"
-            - 10.8.0.8:9100
     sync_servers:
     - 10.8.0.8
   become: true
@@ -23,3 +13,4 @@
     - docker
     - node_exporter
     - prometheus
+    - server-automation

@@ -1,17 +1,4 @@
 ---
-- name: resolve platform specific vars
-  include_vars: '{{ docker_vars }}'
-  with_first_found:
-    - files:
-        - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
-        - '{{ ansible_distribution }}.yml'
-        - '{{ ansible_os_family }}.yml'
-      skip: true
-      paths:
-        - '{{ role_path }}/../../vars'
-  loop_control:
-    loop_var: docker_vars
-
 - name: set fact
   set_fact:
     "user_to_add": "{{ lookup('env','USER') }}"
@@ -39,34 +26,10 @@
   when: ansible_os_family == "Debian"
   become: true
 
-- name: RedHat configuration for Docker
-  block:
-    - name: Disable SELinux
-      selinux:
-        state: disabled
-
-    - name: remove wrong packages for Docker
-      dnf:
-        name: '{{ docker_pkg }}'
-        state: absent
-      with_items: '{{ docker_uninstall_pkgs|default([]) }}'
-      loop_control:
-        loop_var: docker_pkg
-
-    - name: add RedHat repository control
-      dnf:
-        name: 'dnf-plugins-core'
-        state: present
-
-    - name: Add Docker Yum repository
-      become: yes
-      get_url:
-        url: '{{ docker_yum_repo_url }}'
-        dest: '/etc/yum.repos.d/docker.repo'
-        mode: 0644
-
-  when: ansible_os_family == "RedHat"
-  become: true
+- name: cgroupfs-mount
+  become: yes
+  shell: |
+    cgroupfs-mount
 
 - name: Install docker CE
   with_items: '{{ docker_pkgs|default([]) }}'
@@ -79,6 +42,19 @@
 
 - name: OS
   debug: var=ansible_os_family
+
+- name: Ensure group "docker" exists with correct gid
+  group:
+    name: docker
+    state: present
+    gid: 1750
+  become: true
+
+- name: temp-fix cgroups
+  become: yes
+  shell: |
+    mkdir /sys/fs/cgroup/systemd || true
+    mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd
 
 - name: Add current user to docker group
   user:
@@ -96,13 +72,11 @@
     group: root
     mode: "0755"
   become: true
-  when: ansible_os_family == "RedHat" or ansible_os_family == "Debian"
 
 - name: Configure docker server
-  template: src="{{ ansible_os_family }}-docker.conf.j2" dest="/etc/systemd/system/docker.service.d/docker.conf"
+  template: src="{{ ansible_os_family }}-docker.conf.j2" dest="/etc/systemd/system/docker.service.d/docker.service"
   notify:
     - restart and docker
   become: true
-  when: ansible_os_family == "RedHat" or ansible_os_family == "Debian"
 
 - meta: flush_handlers

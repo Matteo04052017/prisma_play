@@ -1,0 +1,5 @@
+---
+docker_pkgs:
+  - docker-ce
+  - make
+  - jq

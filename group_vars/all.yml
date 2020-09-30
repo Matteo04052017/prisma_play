@@ -39,8 +39,5 @@ grafana_data: /var/lib/grafana
 grafana_dashboard_version: nautilus
 grafana_datasource: Prometheus
 grafana_dashboards_path: "{{ grafana_provisioning_config_dir }}/dashboards"
-grafana_plugins:
-  - vonage-status-panel
-  - grafana-piechart-panel
-  - grafana-polystat-panel
+grafana_plugins: []
 grafana_admin_password: admin
