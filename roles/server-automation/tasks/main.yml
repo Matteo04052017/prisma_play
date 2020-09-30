@@ -22,7 +22,7 @@
     month: "{{ cron_job_month }}"
     weekday: "{{ cron_job_weekday }}"
     user: "{{ cron_job_user }}"
-    job: "rsync -av --ignore-existing  system@{{item}}:/prismadata/*"
+    job: "rsync -av --ignore-existing  system@{{item}}:/prismadata/* /prismadata/"
     cron_file: "{{ cron_file }}"
   become: yes
   with_items: "{{ sync_servers }}"
