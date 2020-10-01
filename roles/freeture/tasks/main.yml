@@ -30,6 +30,7 @@
     name:
     - ntp
     - freeture
+    - rsync
     update_cache: yes
 
 - name: Make sure ntp is started, and is enabled on restart.
@@ -37,6 +38,13 @@
 
 - name: Set the timezone to the {{ntp_timezone}} one
   timezone: "name={{ntp_timezone}}"
+
+- name: Ensure .ssh directory
+  file:
+    path: '~/.ssh/'
+    state: directory
+    mode: 0755
+  become: yes
 
 - name: Add ssh key
   become: yes
