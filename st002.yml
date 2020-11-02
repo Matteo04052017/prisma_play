@@ -3,7 +3,7 @@
   hosts: client
   vars:
     mode: "client"
-    openvpn_config_file: /etc/openvpn/st001.conf
+    openvpn_config_file: /etc/openvpn/st002.conf
     input_video_path: /prismadata/
     acq_mask_path: /prismadata/default.bmp
     acq_regulat_prefix: barolo
