@@ -1,0 +1,27 @@
+---
+- name: deploy_st001 # prisma test camera NUC Torino
+  hosts: client
+  vars:
+    mode: "client"
+    openvpn_config_file: /etc/openvpn/st001.conf
+    input_video_path: /prismadata/
+    acq_mask_path: /prismadata/default.bmp
+    acq_regulat_prefix: barolo
+    det_debug_path: /prismadata/debug
+    data_path: /prismadata/
+    station_name: barolo
+    observer: Volpicelli Cosimo
+    camera_name: PRISMA-CAM
+    camera_model: BASLER1300gm
+    camera_focal: 1.25
+    camera_aperture: 2.0
+    sitelong: 7.94396000
+    sitelat: 44.61107000
+    siteelev: 315.0
+  become: true
+  become_method: sudo
+  become_flags: '-E -S -n'
+  roles:
+    - node_exporter
+    - freeture
+    - VPN
