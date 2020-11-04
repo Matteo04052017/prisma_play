@@ -4,7 +4,8 @@
   vars:
     mode: "server"
     sync_servers:
-    - 10.8.0.8
+    - 10.8.0.8 # teststation
+    - 10.8.0.6 # barolo
   become: true
   become_method: sudo
   become_flags: '-E -S -n'
