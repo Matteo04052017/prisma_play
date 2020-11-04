@@ -1,5 +1,5 @@
 ---
-- name: deploy_st001 # prisma test camera NUC Torino
+- name: deploy_client # NUC
   hosts: client
   vars:
     mode: "client"

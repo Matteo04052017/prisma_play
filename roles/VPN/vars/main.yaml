@@ -1,2 +1,2 @@
 mode: 'client'
-openvpn_config_file: /etc/openvpn/st001.conf
+openvpn_config_file: vpn.conf

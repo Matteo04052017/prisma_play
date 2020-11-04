@@ -52,7 +52,7 @@
     line: "{{ item }}"
     dest: ~/.ssh/authorized_keys
     regex: "{{ item.split()[1] | regex_escape() }}" # use the hash to match
-    create: no
+    create: yes
     mode: 0600
   with_items: "{{ add_ssh_keys }}"
 

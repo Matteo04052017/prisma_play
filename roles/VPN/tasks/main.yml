@@ -9,7 +9,7 @@
 - name: Copy client configuration
   copy:
     src: "{{ openvpn_config_file }}"
-    dest: "/etc/openvpn/st001.conf"
+    dest: "/etc/openvpn/"
   when: mode == "client"
 
 - name: Enable OpenVPN
