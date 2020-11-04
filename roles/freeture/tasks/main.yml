@@ -101,3 +101,4 @@
       auto enp0s25:1
       iface enp0s25:1 inet static
           address 10.9.0.3
+  notify: restart freeture

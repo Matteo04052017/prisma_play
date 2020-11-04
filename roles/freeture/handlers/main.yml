@@ -6,3 +6,11 @@
     daemon_reload: yes
     enabled: yes
   become: true
+
+- name: restart networking
+  service:
+    name: networking
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+  become: true
