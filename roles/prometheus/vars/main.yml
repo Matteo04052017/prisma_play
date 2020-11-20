@@ -5,7 +5,19 @@ prometheus_global:
   evaluation_interval: 15s
 
 prometheus_node_metric_relabel_configs: []
-prometheus_static_node_metric_relabel_configs: []
+prometheus_static_node_metric_relabel_configs: 
+  - action: replace
+    regex: 10\.8\.0\.8:9100
+    replacement: teststation:9100
+    source_labels:
+    - instance
+    target_label: instance
+  - action: replace
+    regex: 10\.8\.0\.6:9100
+    replacement: barolo:9100
+    source_labels:
+    - instance
+    target_label: instance
 
 prometheus_remote_write: []
 

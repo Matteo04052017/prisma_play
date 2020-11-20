@@ -1,4 +1,3 @@
-## change hostname
 
 ## set up the compression
 - name: Copy up compress.py file
