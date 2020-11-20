@@ -1,2 +1,2 @@
-mode: 'client'
-openvpn_config_file: vpn.conf
+# mode: 'client'
+# openvpn_config_file: vpn.conf
