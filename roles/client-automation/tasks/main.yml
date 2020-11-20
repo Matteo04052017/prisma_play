@@ -1,8 +1,7 @@
-
 ## set up the compression
 - name: Copy up compress.py file
   copy:
-    src: "{{ role_path }}/core/compress.py"
+    src: "{{ role_path }}/code/compress.py"
     dest: "/usr/local/bin/compress.py"
 
 - name: Add cron job for compression
@@ -19,4 +18,3 @@
   become: yes
   with_items: "{{ sync_servers }}"
 
-## clever way to identify events
