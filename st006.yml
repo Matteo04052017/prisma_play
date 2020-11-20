@@ -8,7 +8,7 @@
     acq_mask_path: /prismadata/default.bmp
     acq_regulat_prefix: barolo
     det_debug_path: /prismadata/debug
-    data_path: /prismadata/
+    data_path: /prismadata/barolo/
     station_name: barolo
     observer: Volpicelli Cosimo
     camera_name: PRISMA-CAM

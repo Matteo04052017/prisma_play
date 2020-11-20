@@ -6,9 +6,9 @@
     openvpn_config_file: /etc/openvpn/st001.conf
     input_video_path: /prismadata/
     acq_mask_path: /prismadata/default.bmp
-    acq_regulat_prefix: teststaion
+    acq_regulat_prefix: teststation
     det_debug_path: /prismadata/debug
-    data_path: /prismadata/
+    data_path: /prismadata/teststation
     station_name: teststation
     observer: Volpicelli Cosimo
     camera_name: PRISMA-CAM

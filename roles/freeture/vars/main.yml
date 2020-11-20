@@ -1,14 +1,14 @@
-input_video_path: /prismadata/
-acq_mask_path: /prismadata/default.bmp
-acq_regulat_prefix: teststaion
-det_debug_path: /prismadata/debug
-data_path: /prismadata/
-station_name: teststation
-observer: Volpicelli Cosimo
-camera_name: PRISMA-CAM
-camera_model: BASLER1300gm
-camera_focal: 1.25
-camera_aperture: 2.0
-sitelong: 7.7649
-sitelat: 45.0412
-siteelev: 620
+# input_video_path: /prismadata/
+# acq_mask_path: /prismadata/default.bmp
+# acq_regulat_prefix: teststaion
+# det_debug_path: /prismadata/debug
+# data_path: /prismadata/
+# station_name: teststation
+# observer: Volpicelli Cosimo
+# camera_name: PRISMA-CAM
+# camera_model: BASLER1300gm
+# camera_focal: 1.25
+# camera_aperture: 2.0
+# sitelong: 7.7649
+# sitelat: 45.0412
+# siteelev: 620
