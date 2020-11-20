@@ -18,6 +18,13 @@
     state: mounted
     fstype: ext4
 
+- name: Ensure data path directory
+  file:
+    path: '{{data_path}}'
+    state: directory
+    mode: 0755
+  become: yes
+
 - name: Change file ownership, group and permissions
   become: yes
   file:
