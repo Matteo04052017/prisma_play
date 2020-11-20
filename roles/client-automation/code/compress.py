@@ -1,6 +1,7 @@
 import shutil
 import tarfile
 import os.path
+import sys, getopt
 
 def make_tarfile(output_filename, source_dir):
     with tarfile.open(output_filename, "w:gz") as tar:
