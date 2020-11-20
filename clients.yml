@@ -1,0 +1,10 @@
+---
+- name: deploy_client # NUC
+  hosts: client
+  become: true
+  become_method: sudo
+  become_flags: '-E -S -n'
+  roles:
+    - node_exporter
+    - freeture
+    - VPN

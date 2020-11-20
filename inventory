@@ -2,4 +2,5 @@
 localhost ansible_connection=local
 
 [client]
-localhost ansible_connection=local
+10.8.0.8 station_name=teststation ansible_user=system acq_regulat_prefix=teststation  mode="client" openvpn_config_file=/etc/openvpn/st001.conf input_video_path=/prismadata/ acq_mask_path=/prismadata/default.bmp det_debug_path=/prismadata/debug data_path=/prismadata/teststation  observer="Volpicelli Cosimo" camera_name=PRISMA-CAM camera_model=BASLER1300gm camera_focal=1.25 camera_aperture=2.0 sitelong=7.7649 sitelat=45.0412 siteelev=620 
+10.8.0.6 station_name=barolo ansible_user=root mode="client" openvpn_config_file=/etc/openvpn/st006.conf input_video_path=/prismadata/ acq_mask_path=/prismadata/default.bmp acq_regulat_prefix=barolo det_debug_path=/prismadata/debug data_path=/prismadata/barolo/ observer="Volpicelli Cosimo" camera_name=PRISMA-CAM camera_model=BASLER1300gm camera_focal=1.25 camera_aperture=2.0 sitelong=7.94396000 sitelat=44.61107000 siteelev=315.0
