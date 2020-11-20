@@ -1,6 +1,23 @@
 ## change hostname
 
 ## set up the compression
+- name: Copy up compress.py file
+  copy:
+    src: "{{ role_path }}/core/compress.py"
+    dest: "/usr/local/bin/compress.py"
+
+- name: Add cron job for compression
+  cron:
+    name: "Compress prisma data at {{data_path}}"
+    minute: "*"
+    hour: "1"
+    day: "*"
+    month: "*"
+    weekday: "*"
+    user: "root"
+    job: "python3 /usr/local/bin/compress.py -r {{data_path}}"
+    cron_file: "/etc/crontab"
+  become: yes
+  with_items: "{{ sync_servers }}"
 
 ## clever way to identify events
-

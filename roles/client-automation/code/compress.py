@@ -20,8 +20,11 @@ for opt, arg in opts:
     if opt in ("-r", "--rootdir"):
         rootdir = arg
 
-list_subfolders_with_paths = [f.path for f in os.scandir(rootdir) if f.is_dir()]
+list_subfolders_with_paths = []
+for f in os.scandir(rootdir):
+    if (f.is_dir()):
+        list_subfolders_with_paths.append(f.path)
 
 for directory in list_subfolders_with_paths:
-    make_tarfile(os.path.basename(directory), directory)
+    make_tarfile(directory + "/" + os.path.basename(directory) + ".tar.gz", directory)
     shutil.rmtree(directory)
