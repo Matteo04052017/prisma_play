@@ -29,7 +29,7 @@ for directory in list_subfolders_with_paths:
     tar_name = directory + "/" + os.path.basename(directory) + ".tar.gz"
     for f in os.scandir(directory):
         if (f.is_dir() and "events" in f.path):
-            tar_name = directory + "/" + os.path.basename(directory) + "_events.tar.gz"
-    print("make tar of diretory " + str(directory) + "with name: " + tar_name)
+            tar_name = directory + "/" + os.path.basename(directory) + "_with_events.tar.gz"
+    print("make tar of diretory " + str(directory) + " with name: " + tar_name)
     #make_tarfile(tar_name, directory)
     #shutil.rmtree(directory)
