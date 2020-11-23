@@ -9,6 +9,7 @@
     acq_regulat_prefix: teststation
     det_debug_path: /prismadata/debug
     data_path: /prismadata/teststation
+    rsync_data_path: /prismadata/rsync
     station_name: teststation
     observer: Volpicelli Cosimo
     camera_name: PRISMA-CAM

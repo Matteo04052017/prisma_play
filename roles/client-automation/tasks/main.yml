@@ -13,7 +13,7 @@
     month: "*"
     weekday: "*"
     user: "root"
-    job: "python3 /usr/local/bin/compress.py -r {{data_path}}"
+    job: "python3 /usr/local/bin/compress.py -r {{data_path}} -o {{rsync_data_path}}"
     cron_file: "/etc/crontab"
   become: yes
   with_items: "{{ sync_servers }}"
