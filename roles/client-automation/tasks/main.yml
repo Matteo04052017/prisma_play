@@ -1,4 +1,11 @@
 ## set up the compression
+- name: Ensure rsync data path directory
+  file:
+    path: '{{rsync_data_path}}'
+    state: directory
+    mode: 0755
+  become: yes
+
 - name: Copy up compress.py file
   copy:
     src: "{{ role_path }}/code/compress.py"
