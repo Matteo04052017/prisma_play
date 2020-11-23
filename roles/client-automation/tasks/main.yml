@@ -7,8 +7,8 @@
 - name: Add cron job for compression
   cron:
     name: "Compress prisma data at {{data_path}}"
-    minute: "*"
-    hour: "1"
+    minute: "30"
+    hour: "*"
     day: "*"
     month: "*"
     weekday: "*"
