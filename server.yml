@@ -4,8 +4,8 @@
   vars:
     mode: "server"
     sync_servers:
-    - system@10.8.0.8:/prismadata/rsync/* /prismastations/teststation/
-    - root@10.8.0.6:/prismadata/rsync/* /prismastations/barolo/
+    - system@10.8.0.8:/prismadata/teststation/* /prismastations/teststation/
+    - root@10.8.0.6:/prismadata/barolo/* /prismastations/barolo/
   become: true
   become_method: sudo
   become_flags: '-E -S -n'
