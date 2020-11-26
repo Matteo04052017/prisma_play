@@ -3,7 +3,17 @@ import tarfile
 import os.path
 import sys, getopt
 
+def check_tarfile(tar_filename):
+    print("Checking tarball " + tar_filename)
+    BLOCK_SIZE = 1024
+    with tarfile.open(tar_filename) as tardude:
+        for member in tardude.getmembers():
+            with tardude.extractfile(member.name) as target:
+                for chunk in iter(lambda: target.read(BLOCK_SIZE), b''):
+                    pass
+
 def make_tarfile(output_filename, source_dir):
+    print("Creating tarball " + output_filename)
     with tarfile.open(output_filename, "w:gz") as tar:
         tar.add(source_dir, arcname=os.path.basename(source_dir))
 
@@ -32,9 +42,22 @@ for directory in list_subfolders_with_paths:
     tar_name = outdir + "/" + os.path.basename(directory) + ".tar.gz"
     for f in os.scandir(directory):
         if (f.is_dir() and "events" in f.path):
-            tar_name = outdir + "/" + os.path.basename(directory) + "_with_events.tar.gz"
-    print("skipping: " + str(directory) + ". Already present")
-    if not os.path.isfile(tar_name):
-        print("make tar of diretory " + str(directory) + " with name: " + tar_name)
-        make_tarfile(tar_name, directory)
-    #shutil.rmtree(directory)
+            ## tarball for events
+            tar_name = outdir + "/events/" + os.path.basename(directory) + ".tar.gz"
+            if not os.path.isfile(tar_name):
+                make_tarfile(tar_name, f)
+            else:
+                try:
+                    check_tarfile(tar_name)
+                except:
+                    make_tarfile(tar_name, f)
+        if (f.is_dir() and "capture" in f.path):
+            ## tarball for capture
+            tar_name = outdir + "/capture/" + os.path.basename(directory) + ".tar.gz"
+            if not os.path.isfile(tar_name):
+                make_tarfile(tar_name, f)
+            else:
+                try:
+                    check_tarfile(tar_name)
+                except:
+                    make_tarfile(tar_name, f)

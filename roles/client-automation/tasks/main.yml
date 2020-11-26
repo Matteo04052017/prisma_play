@@ -4,7 +4,6 @@
     path: '{{rsync_data_path}}'
     state: directory
     mode: 0755
-  become: yes
 
 - name: Copy up compress.py file
   copy:
