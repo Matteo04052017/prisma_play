@@ -1,0 +1,6 @@
+[submodule "roles/server-automation/PRISMA_automation"]
+	path = roles/server-automation/PRISMA_automation
+	url = https://github.com/Matteo04052017/PRISMA_automation
+[submodule "roles/client-automation/PRISMA_automation"]
+	path = roles/client-automation/PRISMA_automation
+	url = https://github.com/Matteo04052017/PRISMA_automation

@@ -3,9 +3,6 @@
   hosts: server
   vars:
     mode: "server"
-    sync_servers:
-    - system@10.8.0.8:/prismadata/teststation/* /prismadata/teststation/
-    - root@10.8.0.6:/prismadata/barolo/* /prismadata/barolo/
   become: true
   become_method: sudo
   become_flags: '-E -S -n'

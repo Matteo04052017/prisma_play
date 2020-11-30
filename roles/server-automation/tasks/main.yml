@@ -6,6 +6,16 @@
     state: present
     update_cache: yes
 
+- name: Copy up PRISMA_Automation files
+  copy:
+    src: "{{ role_path }}/PRISMA_Automation"
+    dest: "/usr/local/bin/PRISMA_Automation"
+
+- name: Copy up data on camera files
+  copy:
+    src: "{{ role_path }}/data"
+    dest: "/usr/local/bin/PRISMA_Automation/data"
+
 - name: Add cron job
   cron:
     name: "{{ cron_job_name }}-{{item}}"
@@ -15,7 +25,6 @@
     month: "{{ cron_job_month }}"
     weekday: "{{ cron_job_weekday }}"
     user: "{{ cron_job_user }}"
-    job: "rsync -av --ignore-existing  {{item}}"
+    job: "python3 /usr/local/bin/PRISMA_Automation/sync_camera.py --input_json_file=data/camera_to_sync.json -d 5"
     cron_file: "{{ cron_file }}"
   become: yes
-  with_items: "{{ sync_servers }}"
