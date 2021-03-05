@@ -1,0 +1,27 @@
+---
+- name: deploy_client
+  hosts: client
+  vars:
+    mode: "client"
+    openvpn_config_file: /etc/openvpn/st007.conf
+    input_video_path: /prismadata/
+    acq_mask_path: /prismadata/default.bmp
+    acq_regulat_prefix: racalmuto
+    det_debug_path: /prismadata/debug
+    data_path: /prismadata/racalmuto/
+    rsync_data_path: /prismadata/rsync
+    station_name: itsi04
+    observer: Carmelo Falco
+    camera_name: Racalmuto
+    camera_model: BASLER1300gm
+    camera_focal: 1.25
+    camera_aperture: 2.0
+    sitelong: 13.7347998
+    sitelat: 37.3999182
+    siteelev: 525.0
+  become: true
+  become_method: sudo
+  become_flags: '-E -S -n'
+  roles:
+    - node_exporter
+    - freeture

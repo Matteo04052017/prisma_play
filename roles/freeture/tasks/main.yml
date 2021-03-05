@@ -10,13 +10,13 @@
 # >> Error : Configuration file is not correct. Fail to launch detection mode.
 
 
-- name: Mount PRISMA
-  become: yes
-  mount:
-    path: /prismadata
-    src: /dev/sda1
-    state: mounted
-    fstype: ext4
+# - name: Mount PRISMA
+#   become: yes
+#   mount:
+#     path: /prismadata
+#     src: /dev/sda1
+#     state: mounted
+#     fstype: ext4
 
 - name: Ensure data path directory
   file:
@@ -62,6 +62,12 @@
     create: yes
     mode: 0600
   with_items: "{{ add_ssh_keys }}"
+
+- name: example copying file with owner and permissions
+  copy:
+    src: "{{ playbook_dir }}/roles/freeture/data/default.bmp"
+    dest: "{{ acq_mask_path }}"
+    mode: 0755
 
 - name: Ensure freeture data directory
   file:
