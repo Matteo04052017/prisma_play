@@ -9,14 +9,14 @@
 - name: Copy up PRISMA_Automation files
   become: yes 
   synchronize:
-    src: "{{ role_path }}/PRISMA_Automation"
-    dest: "/usr/local/bin/PRISMA_Automation"
+    src: "{{ role_path }}/PRISMA_Automation/"
+    dest: "/usr/local/bin/PRISMA_Automation/"
 
 - name: Copy up data on camera files
   become: yes 
   synchronize:
-    src: "{{ role_path }}/data"
-    dest: "/usr/local/bin/PRISMA_Automation/data"
+    src: "{{ role_path }}/data/"
+    dest: "/usr/local/bin/PRISMA_Automation/data/"
 
 - name: Add cron job
   cron:
