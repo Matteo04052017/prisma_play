@@ -1,5 +1,5 @@
 cron_job_name: rsync
-cron_job_minute: "30"
+cron_job_minute: "60"
 cron_job_hour: "*"
 cron_job_day: "*"
 cron_job_month: "*"
