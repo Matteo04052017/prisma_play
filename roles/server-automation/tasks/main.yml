@@ -20,7 +20,7 @@
 
 - name: Add cron job
   cron:
-    name: "{{ cron_job_name }}-{{item}}"
+    name: "{{ cron_job_name }}-prisma-camera-sync"
     minute: "{{ cron_job_minute }}"
     hour: "{{ cron_job_hour }}"
     day: "{{ cron_job_day }}"
