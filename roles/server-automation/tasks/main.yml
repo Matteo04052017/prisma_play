@@ -6,6 +6,11 @@
     state: present
     update_cache: yes
 
+- name: install python dependencies
+  pip:
+    executable: pip3
+    name: paramiko
+
 - name: Copy up PRISMA_Automation files
   become: yes 
   synchronize:
