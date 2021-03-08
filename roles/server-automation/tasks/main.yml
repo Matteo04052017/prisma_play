@@ -7,12 +7,12 @@
     update_cache: yes
 
 - name: Copy up PRISMA_Automation files
-  copy:
+  synchronize:
     src: "{{ role_path }}/PRISMA_Automation"
     dest: "/usr/local/bin/PRISMA_Automation"
 
 - name: Copy up data on camera files
-  copy:
+  synchronize:
     src: "{{ role_path }}/data"
     dest: "/usr/local/bin/PRISMA_Automation/data"
 
