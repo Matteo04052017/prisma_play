@@ -35,3 +35,17 @@
     job: "python3 /usr/local/bin/PRISMA_automation/sync_camera.py --input_json_file=/usr/local/bin/PRISMA_automation/data/camera_to_sync.json -d 5"
     cron_file: "{{ cron_file }}"
   become: yes
+
+- name: Add cron job
+  cron:
+    name: "{{ cron_job_name }}-prisma-fripon-camera-sync"
+    minute: "{{ cron_job_minute }}"
+    hour: "{{ cron_job_hour }}"
+    day: "{{ cron_job_day }}"
+    month: "{{ cron_job_month }}"
+    weekday: "{{ cron_job_weekday }}"
+    user: "{{ cron_job_user }}"
+    job: "python3 /usr/local/bin/PRISMA_automation/sync_fripon.py -d 5"
+    cron_file: "{{ cron_file }}"
+  become: yes
+
