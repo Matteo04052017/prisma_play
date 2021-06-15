@@ -3,9 +3,6 @@
   hosts: server
   vars:
     mode: "server"
-  become: true
-  become_method: sudo
-  become_flags: '-E -S -n'
   roles:
     - updatehosts
     - docker

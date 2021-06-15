@@ -1,37 +1,25 @@
-- name: Install cron
-  become: yes
-  apt:
-    pkg:
-      - cron
-    state: present
-    update_cache: yes
+- name: git PRISMA_Automation
+  ansible.builtin.git:
+    repo: https://github.com/Matteo04052017/PRISMA_automation.git
+    dest: /src/PRISMA_automation
+  environment:
+    GIT_TERMINAL_PROMPT: 0 
 
-- name: install python dependencies
-  pip:
-    executable: pip3
-    name: paramiko
+- name: replace server ip
+  ansible.builtin.replace:
+    path: {{item}}
+    regexp: '172.29.144.1'
+    replace: '{{server_ip}}'
+  with_items: 
+    - /src/PRISMA_automation/docker/driver/procedures_config.json
+    - /src/PRISMA_automation/docker/www_files/config.php
 
-- name: Copy up PRISMA_Automation files
-  become: yes 
-  synchronize:
-    src: "{{ role_path }}/PRISMA_automation"
-    dest: "/usr/local/bin"
+- name: build PRISMA_Automation docker images
+  community.general.make:
+    chdir: /src/PRISMA_automation
+    target: build
 
-- name: Copy up data on camera files
-  become: yes 
-  synchronize:
-    src: "{{ role_path }}/data"
-    dest: "/usr/local/bin/PRISMA_automation"
-
-- name: Add cron job
-  cron:
-    name: "{{ cron_job_name }}-prisma-camera-sync"
-    minute: "{{ cron_job_minute }}"
-    hour: "{{ cron_job_hour }}"
-    day: "{{ cron_job_day }}"
-    month: "{{ cron_job_month }}"
-    weekday: "{{ cron_job_weekday }}"
-    user: "{{ cron_job_user }}"
-    job: "python3 /usr/local/bin/PRISMA_automation/sync_camera.py --input_json_file=data/camera_to_sync.json -d 5"
-    cron_file: "{{ cron_file }}"
-  become: yes
+- name: start PRISMA_Automation
+  community.general.make:
+    chdir: /src/PRISMA_automation
+    target: start

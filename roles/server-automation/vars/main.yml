@@ -1,12 +1,1 @@
-cron_job_name: rsync
-cron_job_minute: "60"
-cron_job_hour: "*"
-cron_job_day: "*"
-cron_job_month: "*"
-cron_job_weekday: "*"
-cron_job_user: root
-
-# sync_servers:
-# - 10.8.0.8
-
-cron_file: /etc/crontab
+server_ip: {{ ansible_default_ipv4.address }}
