@@ -1,0 +1,10 @@
+---
+- name: deploy_prismadriver
+  hosts: idl
+  vars:
+    mode: "server"
+  roles:
+    - updatehosts
+    - docker
+    - node_exporter
+    - prismadriver

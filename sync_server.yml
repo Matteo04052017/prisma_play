@@ -1,6 +1,6 @@
 ---
-- name: deploy_server
-  hosts: server
+- name: deploy_syncserver
+  hosts: sync
   vars:
     mode: "server"
   roles:
@@ -8,4 +8,4 @@
     - docker
     - node_exporter
     - prometheus
-    - server-automation
+    - sync_server

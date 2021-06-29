@@ -1,0 +1,69 @@
+- name: Install git package
+  become: true
+  apt:
+    name: git
+
+- name: Clone git repository 
+  git: 
+    repo: "https://{{ githubuser | urlencode }}:{{ githubpassword | urlencode }}@github.com/Matteo04052017/PRISMA_automation.git"
+    dest: /tmp/PRISMA_automation
+  environment:
+    GIT_TERMINAL_PROMPT: 0 
+
+- name: Build sync_fripon
+  shell: |
+    cd /tmp/PRISMA_automation
+    make build_sync_fripon
+
+- name: Stop sync_fripon container
+  docker_container:
+    name: sync_fripon
+    stop_timeout: 180
+    state: absent
+
+- name: Start sync_fripon container
+  docker_container:
+    name: sync_fripon
+    image: "sync_fripon:{{ sync_fripon_tag }}"
+    state: started
+    restart: yes
+    restart_policy: always
+    volumes:
+      - "{{ localhome }}/.ssh:/root/.ssh"
+      - "/prismadata:/prismadata"
+
+- name: Stop sync_events container
+  docker_container:
+    name: sync_events
+    stop_timeout: 180
+    state: absent
+
+- name: Start sync_events container (OATS)
+  docker_container:
+    name: sync_events
+    image: "instrumentisto/rsync-ssh"
+    state: started
+    restart: yes
+    restart_policy: always
+    command:  rsync -e "ssh -i /root/.ssh/id_rsa" --progress -r controls@prisma.ia2.inaf.it:/mnt/rsync_events/ /prismadata/rsync_events/
+    volumes:
+      - "{{ localhome }}/.ssh:/root/.ssh"
+      - "/prismadata:/prismadata"
+
+- name: Stop sync_captures container
+  docker_container:
+    name: sync_captures
+    stop_timeout: 180
+    state: absent
+
+- name: Start sync_captures container (OATS)
+  docker_container:
+    name: sync_captures
+    image: "instrumentisto/rsync-ssh"
+    state: started
+    restart: yes
+    restart_policy: always
+    command:  rsync -e "ssh -i /root/.ssh/id_rsa" --progress -r controls@prisma.ia2.inaf.it:/mnt/rsync_captures/ /prismadata/rsync_captures/
+    volumes:
+      - "{{ localhome }}/.ssh:/root/.ssh"
+      - "/prismadata:/prismadata"

@@ -43,9 +43,10 @@ prometheus_scrape_configs:
   static_configs:
     - targets:
         - "{{ ansible_fqdn | default(ansible_host) | default('localhost') }}:9100"
+        - 10.8.0.1:9100 ## vpn server
         - 10.8.0.8:9100 ## teststation
         #- 10.8.0.6:9100 ## barolo not working anymore -- lost
-        - 10.8.0.7:9100 ## racalmuto
+        #- 10.8.0.7:9100 ## racalmuto
 
 prometheus_record_rules:
   - record: instance:node_cpu:load

@@ -4,6 +4,7 @@
 - debug: var=ansible_hostname
 
 - name: "Build hosts file"
+  become: true
   lineinfile:
       path: /etc/hosts
       regexp: '.*{{ ansible_hostname }}'

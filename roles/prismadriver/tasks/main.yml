@@ -1,0 +1,39 @@
+- name: Install git package
+  become: true
+  apt:
+    name: git
+
+- name: Clone git repository 
+  git: 
+    repo: "https://{{ githubuser | urlencode }}:{{ githubpassword | urlencode }}@github.com/Matteo04052017/PRISMA_automation.git"
+    dest: /tmp/PRISMA_automation
+  environment:
+    GIT_TERMINAL_PROMPT: 0 
+
+- name: Build prismadriver
+  shell: |
+    cd /tmp/PRISMA_automation
+    ln -s /prismadata/idl88-linux.tar.gz idl88-linux.tar.gz
+    make build_idl
+    make build_driver
+
+- name: Stop prismadriver container
+  docker_container:
+    name: prismadriver
+    stop_timeout: 180
+    state: absent
+
+- name: Start prismadriver container
+  docker_container:
+    name: prismadriver
+    image: "prismadriver:{{ prisma_driver_tag }}"
+    state: started
+    restart: yes
+    restart_policy: always
+    volumes:
+      - "/prismadata/stations:/astrometry/workspace/captures"
+      - "/prismadata/detections/multiple:/astrometry/workspace/events"
+      - "/prismadata/runtime:/astrometry/workspace/runtime"
+      - "/prismadata/settings:/astrometry/workspace/settings"
+      - "/prismadata/astrometry:/astrometry/workspace/astrometry"
+      - "/prismadata/results:/astrometry/workspace/results"

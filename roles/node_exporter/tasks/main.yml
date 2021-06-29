@@ -1,5 +1,6 @@
 ---
 - name: Install node_exporter for Debian
+  become: true
   block:
 
     - name: Install prometheus-node-exporter
@@ -13,7 +14,6 @@
         mode: 0755
 
     - name: Fix node_exporter service configuration
-      become: true
       template:
         src: "{{ playbook_dir }}/roles/node_exporter/templates/prometheus-node-exporter.conf.j2"
         dest: /etc/systemd/system/prometheus-node-exporter.service.d/prometheus-node-exporter.conf
