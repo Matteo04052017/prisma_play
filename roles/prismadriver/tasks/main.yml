@@ -17,12 +17,6 @@
     make build_idl
     make build_driver
 
-- name: Stop prismadriver container
-  docker_container:
-    name: prismadriver
-    stop_timeout: 180
-    state: absent
-
 - name: Start prismadriver container
   docker_container:
     name: prismadriver

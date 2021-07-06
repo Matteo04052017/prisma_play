@@ -45,7 +45,7 @@
     state: started
     restart: yes
     restart_policy: always
-    command:  rsync -e "ssh -i /root/.ssh/id_rsa" --progress -r controls@prisma.ia2.inaf.it:/mnt/rsync_events/ /prismadata/rsync_events/
+    command:  rsync -e "ssh -i /root/.ssh/id_rsa" --progress --info=progress2 -r controls@prisma.ia2.inaf.it:/mnt/rsync_events/ /prismadata/rsync_events/
     volumes:
       - "{{ localhome }}/.ssh:/root/.ssh"
       - "/prismadata:/prismadata"
@@ -63,7 +63,7 @@
     state: started
     restart: yes
     restart_policy: always
-    command:  rsync -e "ssh -i /root/.ssh/id_rsa" --progress -r controls@prisma.ia2.inaf.it:/mnt/rsync_captures/ /prismadata/rsync_captures/
+    command:  rsync -e "ssh -i /root/.ssh/id_rsa" --progress --info=progress2 -r controls@prisma.ia2.inaf.it:/mnt/rsync_captures/ /prismadata/rsync_captures/
     volumes:
       - "{{ localhome }}/.ssh:/root/.ssh"
       - "/prismadata:/prismadata"
